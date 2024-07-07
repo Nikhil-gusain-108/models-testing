@@ -1,0 +1,68 @@
+{% extends "layout.html" %}
+{% block title %} MODELS TESTING {% endblock %}
+
+
+<!-- NAVBAR -->
+{% block navbar %}
+<div class="container">
+    <header class="d-flex justify-content-center py-3">
+      <ul class="nav nav-pills">
+        <li class="nav-item"><a href="/library/" class="nav-link active" aria-current="page">Home</a></li>
+        <li class="nav-item"><a href="/library/books/" class="nav-link">Library</a></li>
+        <li class="nav-item"><a href="/library/add_new/" class="nav-link ">New books</a></li>
+      </ul>
+    </header>
+  </div>
+{% endblock %}
+
+<!-- SECTION CONTENT HERE-->
+{% block section %}
+<div class="d-flex gap-2 justify-content-center py-5 bg-dark rounded">
+  {% for genre in details.genra %}
+  {% if details.genras == genre %}
+  <a class="btn btn-light rounded-pill px-3 active" href="{% url 'genra_sort' genre.id %}" >{{genre.genra_name}} </a>
+  {% else %}
+  <a class="btn btn-light rounded-pill px-3" href="{% url 'genra_sort' genre.id %}" >{{genre.genra_name}} </a>
+  {% endif %}
+  {% endfor %}
+</div>
+{% endblock %}
+<!-- BODY CONTENT HERE -->
+{% block content %}
+    <div class ="d-flex flex-column">
+        <!-- Books display  using for -->
+        <h3>{{details.genere}}</h3>
+        {% for book in details.books %}
+        {% if details.genere in book.book_genra.all%}
+        <div class="card mb-3" style="max-width: 540px;">
+          <div class="row g-0">
+            <div class="col-md-4">
+              <img src="{{book.book_img.url}}" class="img-fluid rounded-start" alt="...">
+            </div>
+            <div class="col-md-8">
+              <div class="card-body">
+                <h5 class="card-title">{{book.book_name}} </h5>
+                <p class="card-text">GENRAS -- 
+                  {% for genre in book.book_genra.all %}
+                  {{genre}},
+                  {% endfor %}</p>
+                <p class="card-text"><small class="text-body-secondary"> 
+                  {% if book.book_avilability %}
+                  <strong>Avilable</strong>
+                  {% else %}
+                  <strong>OUT OF STOCK</strong>
+                  {% endif %}
+                   <br> 
+                   Price :  {{book.book_price}} </small></p>
+              </div>
+              <a class="btn btn-link" href="{% url 'about' book.id%}"> Know more</a>
+              {% comment %} <p>Generated URL: {% url 'book_details' book.id%}</p> {% endcomment %}
+            </div>
+            <a class="btn btn-light" href="{% url 'edit' book.id%}"> Edit</a>
+            <a class="btn btn-danger" href="{% url 'delete' book.id%}"> Delete</a>
+          </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+      </div>
+    {% endblock %}
