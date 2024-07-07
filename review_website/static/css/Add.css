@@ -1,0 +1,32 @@
+.content-container {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.content-container > form {
+    border: 2px solid black;
+    background-color: #112c3847;
+    padding: 2%;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    /* border-radius: 2%; */
+    border-top-left-radius: 3%;
+    border-bottom-right-radius: 2%;
+}
+
+.content-container > form > p > label {
+    display: block;   
+}
+form > p > input{
+    background-color: #00ff9c2e;
+}
+
+/* form > p > textarea{
+    display: none;
+} */
+form > p:nth-child(3){
+    display: none;
+}

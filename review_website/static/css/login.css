@@ -1,0 +1,73 @@
+body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+h1 {
+    font-size: 3rem;
+    text-decoration: underline;
+}
+
+form {
+    font-size: 2rem;
+}
+
+.box {
+    border: 2px solid black;
+    border-radius: 5%;
+    padding: 10px;
+}
+
+form>p>label {
+    display: block;
+}
+
+p>a {
+    margin-top: 10%;
+    width: 100%;
+    border: 2px solid black;
+    border-radius: 10px;
+    background-color: rgb(2, 2, 2);
+    padding: 1%;
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+}
+
+p {
+    font-size: 2rem;
+    display: block;
+}
+
+.helptext {
+    display: none;
+}
+
+form>div>label {
+    display: block;
+}
+
+button {
+    color: white;
+    background-color: rgb(0, 0, 0);
+    border-radius: 5px;
+    padding: 5px;
+    padding-right: 10px;
+    margin-top: 10px;
+    width: 100%;
+}
+
+p > a {
+    color: white;
+    background-color: rgb(0, 0, 0);
+    text-align: center;
+    border-radius: 5px;
+    display: block;
+    padding: 5px;
+    padding-right: 10px;
+    margin-top: 10px;
+    width: 100%;
+
+}

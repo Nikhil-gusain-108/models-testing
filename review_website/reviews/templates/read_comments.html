@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+{% load static %}
+{% block title %} comments{% endblock %}
+{% block style %}
+
+    <link rel="stylesheet" href= "{% static 'css/read.css'%}" >
+    
+    {% endblock %}
+{% block content %}
+<h2>{{review.title|upper}} </h2>
+<img src= "{{review.reviews_img.url}}">
+{% for item in replys %}
+<div class="card">
+    <div class="card-header">
+      {{item.user|upper}}
+    </div>
+    <div class="card-body">
+      {% if item.user == user %}
+      <p class="card-text edit{{item.id}}">{{item.text}}</p>
+      <form  class ="d-none edit{{item.id}}" action= "{% url 'cmt_update' item.id%}" method="post">
+        {% csrf_token %}
+        <textarea type="text" name="text" >{{item.text}}</textarea>
+        <button class="btn btn-success" type="submit">Save</button>
+        
+      </form>
+      {% else %}
+      <p class="card-text">{{item.text}}</p>
+      {% endif %}
+      <div class="cmt_btn">
+        {% if item.user == user %}
+        <button class="btn btn-primary" onclick = classtoggle("edit{{item.id}}") >Edit</button>
+        
+        <a class="btn btn-danger delete" href={% url "cmt_delete" item.id%}>delete</a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  <script src={% static "js/script.js" %}></script>
+{% endfor %}
+
+{% endblock %}
+
+{% comment %} for comments in all_reviews:
+        for user in comments.user.all():
+            print(user==details.user) {% endcomment %}

@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+{% load static %}
+{% block title %} comment {% endblock %}
+{% block style %}
+    <link rel="stylesheet" href="{% static 'css/comment.css'%}">
+{% endblock %}
+{% block navbar %}
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">R/W</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href={% url "all_reviews" %}>Reviews</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href={% url "user_review" %}>My Reviews</a>
+        </li>
+        
+      </ul>
+    </div>
+  </div>
+  <a href={% url "add_products" %} class="btn btn-primary"> Add review</a>
+  {% if user.is_authenticated %}
+        <form action="{% url 'logout' %}" method="post">
+          {% csrf_token %}
+          <button class= "btn btn-danger" type="submit">logout</button>
+        </form>
+  {% endif %}
+</nav>
+{% endblock %}
+
+
+{% block content %} 
+<h2>Add comment</h2>
+<h4>title -- {{review.title}}</h4>
+<form method="POST" action = {% url 'newcomment' review.id%} enctype='multipart/form-data' >
+    {% csrf_token %}
+    <h5>comment</h5> 
+    {{form}}
+    <button class = "btn btn-success" type="submit"> Add </button>
+</form>
+
+{% endblock %}
