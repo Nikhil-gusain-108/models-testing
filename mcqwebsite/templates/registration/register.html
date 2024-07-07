@@ -1,0 +1,21 @@
+{% extends "index.html" %}
+{% load static %}
+{% block title %}{% endblock %}
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/login.css'%}">
+{% endblock %}
+{% block navbar %}
+
+{% endblock %}
+
+{% block content %}
+<div class="box">
+  <h1>Register</h1>
+  <form method="post">
+    {% csrf_token %}
+    {{form}}
+    <button type="submit">register</button>
+  </form>
+  <p>Already have account: <a href="{% url 'login' %}">login</a></p>
+</div>
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends "index.html" %}
+{% block title %}{% endblock %}
+{% block navbar %}
+<div class="container">
+    <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+      <a href="{% url 'quiz_show' %}" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+      </a>
+
+      <ul class="nav nav-pills">
+        <li class="nav-item"><a href="{% url 'quiz_show' %}" class="nav-link active" aria-current="page">Home</a></li>
+        <li class="nav-item"><a href="{% url 'leaderbord' %}" class="nav-link">Leaderboard</a></li>
+        <li class="nav-item">
+          {% if user.is_authenticated %}
+        <form action="{% url 'logout' %}" method="post">
+          {% csrf_token %}
+          <button class= "btn btn-danger" type="submit">logout</button>
+        </form>
+        {% else %}
+        <li class="nav-item"><a href=" {% url 'login' %}" class="nav-link">login</a></li>
+        {% endif %}
+          </li>
+      </ul>
+    </header>
+  </div>
+
+{% endblock %}
+
+<!-- Content here-->
+{% block content %}
+
+
+<!-- check box buttons -->
+
+     <form method="post">
+        {% csrf_token %}
+        {% for quiz in quiz_data %}
+        <fieldset>
+        <legend class = "mb bg-secondary text-black">{{quiz.question}}</legend> <br>
+        <div>
+        <input type="radio" class="btn-check mb-2" id="{{quiz.options.option_A}}" name="{{quiz.question}}" value="{{quiz.options.option_A}}">
+        <label class="mb-2 btn btn-outline-primary" for="{{quiz.options.option_A}}">{{quiz.options.option_A}}</label>
+        </div> 
+        <div>
+        <input type="radio" class="btn-check" id="{{quiz.options.option_B}}" name="{{quiz.question}}" value="{{quiz.options.option_B}}">
+        <label class="mb-2 btn btn-outline-primary" for="{{quiz.options.option_B}}">{{quiz.options.option_B}}</label>
+        </div> 
+        <div>
+        <input type="radio" class="btn-check" id="{{quiz.options.option_C}}" name="{{quiz.question}}" value="{{quiz.options.option_C}}">
+        <label class="mb-2 btn btn-outline-primary" for="{{quiz.options.option_C}}">{{quiz.options.option_C}}</label>
+        </div> 
+        <div>
+        <input type="radio" class="btn-check" id="{{quiz.options.option_D}}" name="{{quiz.question}}" value="{{quiz.options.option_D}}">
+        <label class="btn btn-outline-primary" for="{{quiz.options.option_D}}">{{quiz.options.option_D}}</label>
+        </div>
+        </fieldset> <hr>
+        {% endfor %}
+        <button type="submit"> Submit </button>
+        </form>
+
+{% endblock %}

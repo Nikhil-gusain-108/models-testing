@@ -1,0 +1,49 @@
+{% extends "index.html" %}
+{% block title %}{% endblock %}
+{% block navbar %}
+<div class="container">
+    <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+      <a href="{% url 'quiz_show' %}" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+        <h2>MCQ</h2>
+      </a>
+ 
+      <ul class="nav nav-pills">
+        <li class="nav-item"><a href="{% url 'quiz_show' %}" class="nav-link active" aria-current="page">Home</a></li>
+        <li class="nav-item"><a href="{% url 'leaderbord' %}" class="nav-link">Leaderboard</a></li>
+        <li class="nav-item">
+        {% if user.is_authenticated %}
+      <form action="{% url 'logout' %}" method="post">
+        {% csrf_token %}
+        <button class= "btn btn-danger" type="submit">logout</button>
+      </form>
+      {% else %}
+      <li class="nav-item"><a href=" {% url 'login' %}" class="nav-link">login</a></li>
+      {% endif %}
+        </li>
+      </ul>
+      
+    </header>
+  </div>
+  <div class="d-flex gap-2 justify-content-center py-5">
+    {% for quiz_type in details.quiz_types %}
+    <a class="btn btn-outline-secondary d-flex " href = "{% url 'ShortedQuizTypes' quiz_type.id%}" >
+      {{quiz_type.type_name}}
+    </a>
+    {% endfor %}
+  </div>
+{% endblock %}
+
+
+
+{% block content %}
+{% for quiz in details.quiz %}
+<div class="card">
+    <h5 class="card-header">{{quiz.quiz_type|upper}} QUIZ</h5>
+    <div class="card-body">
+      <h5 class="card-title"> TYPE -- {{quiz.quiz_type|upper}}</h5>
+      <p class="card-text">By -- {{quiz.quiz_creator}} </p>
+      <a href="{% url 'takequiz' quiz.id%}" class="btn btn-primary">Try</a>
+    </div>
+  </div>
+    {% endfor %}
+{% endblock %}
